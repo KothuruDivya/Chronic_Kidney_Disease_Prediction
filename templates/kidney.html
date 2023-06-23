@@ -1,0 +1,266 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+    
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #008cba;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .button:hover {
+        background-color: #005580;
+      }
+    
+</style>
+<div class="row" style="margin-bottom: 125px;">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <center>
+            <h1>Kidney Disease Predictor</h1>
+        </center>
+        <div class="card card-body" style="border: 1px solid black;">
+            <form class="form-horizontal" id="needs-validation" action="{{ url_for('predictPage') }}" method="POST"
+                novalidate>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="age"
+                                placeholder="age" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="bp"
+                                placeholder="blood pressure" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="al"
+                                placeholder="albumin" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="su"
+                                placeholder="sugar" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="rbc"
+                                placeholder="red blood cells (abnormal=1/ normal=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pc"
+                                placeholder="pus cells (abnormal=1/ normal=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pcc"
+                                placeholder="pus cell clumps (present=1/ not present=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="ba"
+                                placeholder="bacteria" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="bgr"
+                                placeholder="blood glucose" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="bu"
+                                placeholder="blood urea" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="sc"
+                                placeholder="serum creatinine" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pot"
+                                placeholder="potassium" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="wc"
+                                placeholder="white blood cells count" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="htn"
+                                placeholder="hypertension (yes=1/no=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="dm"
+                                placeholder="diabetes mellituis (yes=1/no=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="cad"
+                                placeholder="coronary artery disease (yes=1/no=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="pe"
+                                placeholder="pedal enema (yes=1/no=0)" required>
+
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input style="border: 1px solid black;" class="form-control" type="text" name="ane"
+                                placeholder="anemia (yes=1/no=0)" required>
+                            <div class="invalid-feedback">
+                                Please enter required data
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-info btn-block" value="Predict">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="reset" class="btn btn-info btn-block" onClick="window.location.reload();"
+                            value="Reset" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var form = document.getElementById('needs-validation');
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        }, false);
+    })();
+
+</script>
+
+{% endblock %}
